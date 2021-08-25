@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang nhân viên</title>
+
+    <link rel="stylesheet" href="../../css/Bootstrap/bootstrap.min.css">
+    <script src="../../js/jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../../js/Bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../../js/Bootstrap/bootstrap.min.js"></script>
+
+    <style>
+        html {
+            height: 100%;
+        }
+
+        .top-banner {
+            width: 100%;
+            padding: 2px 0px;
+            text-align: center;
+            color: white;
+            background-color: #0C85FF;
+        }
+
+        .bottom-banner {
+            width: 100%;
+            padding: 3px 0px 3px 0px;
+            background-color: #6BB5FF;
+        }
+
+        .bottom-banner .home {
+            min-width: 15%;
+            text-align: center;
+            padding: 3px 0px;
+        }
+
+        .bottom-banner .home a {
+            padding: 3px 15px 5px 15px;
+            border-radius: 8px;
+        }
+
+        .bottom-banner .home a:hover {
+            background-color: rgb(240, 240, 240, 0.5);
+        }
+
+        .bottom-banner .account .dropdown {
+            margin: 0px 80px;
+            padding: 3px 10px;
+            border-radius: 8px;
+        }
+
+        .bottom-banner .account .dropdown:hover {
+            background-color: rgb(240, 240, 240, 0.5);
+        }
+
+        .navigation {
+            min-width: 15%;
+            height: 100%;
+            float: left;
+            background-image: linear-gradient(#8FC6FF, #FFFFFF);
+            text-align: center;
+        }
+
+        .navigation li {
+            background-color: white;
+            border: 1px solid black;
+        }
+
+        .navigation a {
+            padding: 5px;
+            color: black;
+        }
+
+        .navigation a:hover {
+            background-color: #CCE6FF;
+        }
+
+        .content {
+            min-width: 85%;
+            height: 100%;
+            padding: 20px;
+            float: right;
+        }
+
+        .content .title {
+            color: #0C85FF;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .content .title::after {
+            content: "";
+            display: block;
+            width: 300px;
+            padding-top: 3px;
+            border-bottom: 2px solid #0C85FF;
+        }
+
+        .footer {
+            width: 100%;
+            clear: both;
+            text-align: center;
+            background-color: #0C85FF;
+            padding: 5px;
+            color: white;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body style="height: 100vh; overflow: hidden;">
+    <div class="container-xxl" style="background-color: #F5F5F5; height: 100%; padding: 0;">
+        <div class="top-banner">
+            <h5>Phần mềm quản lý thư viện</h5>
+        </div>
+
+        <div class="bottom-banner d-flex justify-content-between">
+            <div class="home text-decoration-none">
+                <a href="#" style="color: white;" class="text-decoration-none">Trang chủ</a>
+            </div>
+
+            <div class="account">
+                <div class="dropdown">
+                    <a style="color: white;" class="text-decoration-none" type="button" id="dropdownMenuButton1"
+                        data-toggle="dropdown" aria-expanded="false">
+                        Xin chào, Lê Tấn Phát
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Tài khoản</a></li>
+                        <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Trang tổng quan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Quản lý bạn đọc</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Quản lý sách</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Quản lý mượn sách</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Quản lý trả sách</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Quản lý nhân viên</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tham số hệ thống</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="title">Xác nhận thẻ thư viện</div>
+
+            <div class="form" style="display:block; width: 500px; margin: auto; margin-top: 50px;">
+                <form action="">
+                    <input type="text" placeholder="Nhập mã số thẻ thư viện" style="width: 100%; margin-bottom: 20px;">
+                    <button class="btn btn-primary" style="display:block; margin: auto;">Xác nhận</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            Bản quyền thuộc về công ty Nhập môn công nghệ phần mềm.
+        </div>
+    </div>
+</body>
+
+</html>
