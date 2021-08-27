@@ -10,9 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class UserDAO {
-    public User getUserByLibraryId(String libraryCardId) {
+    public static User getUserByLibraryId(String libraryCardId) {
         User user = new User();
-        String userQuery = "select * from Users where QuanLyThuVien.dbo.Users.isDelete = 0 and QuanLyThuVien.dbo.Users.libraryId = ?";
+        String userQuery = "select * from Users where QuanLyThuVien.dbo.Users.userStatusId = 1 and QuanLyThuVien.dbo.Users.libraryCardId = ?";
 
         try {
             int id = Integer.parseInt(libraryCardId);
@@ -20,20 +20,20 @@ public class UserDAO {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                user.setLibraryId(resultSet.getInt("libraryId"));
+                user.setLibraryCardId(resultSet.getInt("libraryCardId"));
                 user.setUserName(resultSet.getString("userName"));
-                user.setGender(resultSet.getBoolean("gender"));
+                user.setGender(resultSet.getString("gender"));
                 user.setBirthday(resultSet.getDate("birthday"));
                 user.setEmail(resultSet.getString("email"));
                 user.setAddress(resultSet.getString("address"));
                 user.setCmnd(resultSet.getString("CMND"));
                 user.setPassword(resultSet.getString("password"));
                 user.setCreateDate(resultSet.getDate("createDate"));
-                user.setDelete(resultSet.getBoolean("isDelete"));
-                user.setRoleId(resultSet.getInt("roleId"));
-                user.setStatusId(resultSet.getInt("statusId"));
+                user.setImgLink(resultSet.getString("imgLink"));
                 user.setRandomKey(resultSet.getString("randomKey"));
                 user.setGetPassTime(resultSet.getTimestamp("getPassTime"));
+                user.setRoleId(resultSet.getInt("roleId"));
+                user.setUserStatusId(resultSet.getInt("userStatusId"));
                 return user;
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -42,7 +42,7 @@ public class UserDAO {
         return null;
     }
 
-    public User getUserByLogin(String libraryCardId, String password) {
+    public static User getUserByLogin(String libraryCardId, String password) {
         try {
             User user = getUserByLibraryId(libraryCardId);
             if (user != null && user.getPassword().contentEquals(password)) {
@@ -54,7 +54,7 @@ public class UserDAO {
         return null;
     }
 
-    public boolean checkEmail(String userEmail) {
+    public static boolean checkEmail(String userEmail) {
         String query = "select email from Users where QuanLyThuVien.dbo.Users.Email = ?";
         try {
             PreparedStatement preparedStatement = DBConnection.connect(query);
@@ -70,7 +70,7 @@ public class UserDAO {
         return false;
     }
 
-    public boolean checkGetPassTimeByEmail(String userEmail, int time) {
+    public static boolean checkGetPassTimeByEmail(String userEmail, int time) {
         String query = "select GetPassTime from Users where QuanLyThuVien.dbo.Users.Email = ?";
         try {
             PreparedStatement preparedStatement = DBConnection.connect(query);
@@ -109,7 +109,7 @@ public class UserDAO {
         return true;
     }
 
-    public boolean setRandomKeyByEmail(String userEmail, String randomKey) {
+    public static boolean setRandomKeyByEmail(String userEmail, String randomKey) {
         String update = "update Users set QuanLyThuVien.dbo.Users.randomKey = ? where QuanLyThuVien.dbo.Users.email = ?";
         try {
             PreparedStatement preparedStatement = DBConnection.connect(update);
@@ -127,7 +127,7 @@ public class UserDAO {
         return setGetPassTimeByEmail(userEmail) && setRandomKeyByEmail(userEmail, randomKey);
     }
 
-    public User getUserByEmail(String email) {
+    public static User getUserByEmail(String email) {
         User user = new User();
         String userQuery = "select * from Users where QuanLyThuVien.dbo.Users.isDelete = 0 and QuanLyThuVien.dbo.Users.email = ?";
 
@@ -136,20 +136,20 @@ public class UserDAO {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                user.setLibraryId(resultSet.getInt("libraryId"));
+                user.setLibraryCardId(resultSet.getInt("libraryCardId"));
                 user.setUserName(resultSet.getString("userName"));
-                user.setGender(resultSet.getBoolean("gender"));
+                user.setGender(resultSet.getString("gender"));
                 user.setBirthday(resultSet.getDate("birthday"));
                 user.setEmail(resultSet.getString("email"));
                 user.setAddress(resultSet.getString("address"));
                 user.setCmnd(resultSet.getString("CMND"));
                 user.setPassword(resultSet.getString("password"));
                 user.setCreateDate(resultSet.getDate("createDate"));
-                user.setDelete(resultSet.getBoolean("isDelete"));
-                user.setRoleId(resultSet.getInt("roleId"));
-                user.setStatusId(resultSet.getInt("statusId"));
+                user.setImgLink(resultSet.getString("imgLink"));
                 user.setRandomKey(resultSet.getString("randomKey"));
                 user.setGetPassTime(resultSet.getTimestamp("getPassTime"));
+                user.setRoleId(resultSet.getInt("roleId"));
+                user.setUserStatusId(resultSet.getInt("userStatusId"));
                 return user;
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -158,7 +158,7 @@ public class UserDAO {
         return null;
     }
 
-    public boolean resetPassByEmail(String email, String pass) {
+    public static boolean resetPassByEmail(String email, String pass) {
         String update = "update Users set QuanLyThuVien.dbo.Users.password = ? where QuanLyThuVien.dbo.Users.email = ?";
         try {
             PreparedStatement preparedStatement = DBConnection.connect(update);

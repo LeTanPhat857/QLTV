@@ -26,15 +26,6 @@ public class Default extends HttpServlet {
             case "home":
                 request.getRequestDispatcher("home.jsp").forward(request, response);
                 break;
-            case "login":
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-                break;
-            case "forgetPassword":
-                request.getRequestDispatcher("forgetPassword.jsp").forward(request, response);
-                break;
-            case "resetPassword":
-                request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
-                break;
 
             // staff page
             case "staffHome":

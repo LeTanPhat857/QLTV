@@ -36,7 +36,7 @@ public class LoginController extends HttpServlet {
 
         User user = null;
         if (libraryCardId.length() != 0 && password.length() != 0) {
-            user = new UserDAO().getUserByLogin(libraryCardId, password);
+            user = UserDAO.getUserByLogin(libraryCardId, password);
         }
 
         // processing

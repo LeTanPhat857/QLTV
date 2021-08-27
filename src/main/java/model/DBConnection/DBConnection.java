@@ -11,7 +11,7 @@ public class DBConnection {
     public static PreparedStatement connect(String sql) throws ClassNotFoundException, SQLException {
             if (connection == null || connection.isClosed()) {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                connection = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=QuanLyThuVien;user=sa;password=sa");
+                connection = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=QuanLyThuVien;user=sa;password=sa;CharacterSet=UTF-8");
             }
             return connection.prepareStatement(sql);
     }

@@ -31,39 +31,38 @@ public class ForgetPassword extends HttpServlet {
         // get user email
         String userEmail = request.getParameter("email");
         // processing
-        UserDAO userDAO = new UserDAO();
-        boolean checkEmail = userDAO.checkEmail(userEmail);
-        boolean checkTime = userDAO.checkGetPassTimeByEmail(userEmail, 30 * 60 * 1000);
+        boolean checkEmail = UserDAO.checkEmail(userEmail);
+        boolean checkTime = UserDAO.checkGetPassTimeByEmail(userEmail, 30 * 60 * 1000);
 
         printWriter.println(checkAndSendEmail(userEmail, checkEmail, checkTime));
     }
 
     private String checkAndSendEmail(String userEmail, boolean checkEmail, boolean checkTime) {
-        // email khÃ´ng cÃ³ trong Database
+    	// email không có trong Database
         if (!checkEmail) {
-            return "Email khÃ´ng Ä‘Ãºng! Vui lÃ²ng kiá»ƒm tra láº¡i Email!";
+            return "Email không đúng! Vui lòng kiểm tra lại Email!";
         }
-        // Ä‘Ã£ gá»­i link láº¥y láº¡i máº­t kháº©u trong 30 gáº§n Ä‘Ã¢y
+        // đã gửi link lấy lại mật khẩu trong 30 gần đây
         if (checkTime) {
-            return "Vui lÃ²ng truy cáº­p vÃ o email cá»§a báº¡n Ä‘á»ƒ láº¥y láº¡i máº­t kháº©u!";
+            return "Vui lòng truy cập vào email của bạn để lấy lại mật khẩu!";
         }
-        // gá»­i link má»›i
+        // gửi link mới
         else {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // táº¡o chuá»—i ngáº«u nhiÃªn
+                    // tạo chuỗi ngẫu nhiên
                     String randomKey = new Random().createRandomString(120);
-                    // Ä‘áº·t thá»�i gian láº¥y láº¡i máº­t kháº©u vÃ  chuá»—i ngáº«u nhiÃªn vÃ o báº£ng user
+                    // đặt thời gian lấy lại mật khẩu và chuỗi ngẫu nhiên vào bảng user
                     new UserDAO().setGetPassTimeAndRandomKeyByEmail(userEmail, randomKey);
-                    // táº¡o link Ä‘á»•i máº­t kháº©u
+                    // tạo link đổi mật khẩu
                     String link = "http://localhost:8080//QuanLyThuVien/resetPassword?email=" + userEmail + "&key=" + randomKey + "\n";
-                    // gá»­i mail
+                    // gửi mail
                     new MailSender().sendForgetPassMail(userEmail, link);
                 }
             }).start();
-            // thÃ´ng bÃ¡o
-            return "Vui lÃ²ng truy cáº­p vÃ o email cá»§a báº¡n Ä‘á»ƒ láº¥y láº¡i máº­t kháº©u!";
+            // thông báo
+            return "Vui lòng truy cập vào email của bạn để lấy lại mật khẩu!";
         }
     }
 }

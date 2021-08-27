@@ -33,17 +33,16 @@ public class ResetPasswordController extends HttpServlet {
         String email = request.getParameter("email");
         String randomKey = request.getParameter("key");
 
-        User user = new UserDAO().getUserByEmail(email);
+        User user = UserDAO.getUserByEmail(email);
 
         response.sendRedirect(checkAndSendEmail(user, randomKey));
     }
 
     private String checkAndSendEmail(User user, String randomKey) {
-        UserDAO userDAO = new UserDAO();
-        if (user != null && user.getRandomKey().contentEquals(randomKey) && userDAO.checkGetPassTimeByEmail(user.getEmail(), 30 * 60 * 1000)) {
+        if (user != null && user.getRandomKey().contentEquals(randomKey) && UserDAO.checkGetPassTimeByEmail(user.getEmail(), 30 * 60 * 1000)) {
             String newPass = new Random().createRandomString(8);
 
-            if (userDAO.resetPassByEmail(user.getEmail(), newPass) && new MailSender().sendNewPassMail(user.getEmail(), newPass)) {
+            if (UserDAO.resetPassByEmail(user.getEmail(), newPass) && new MailSender().sendNewPassMail(user.getEmail(), newPass)) {
                 if (user.getRoleId() == 1) {
                     return "default?page=home";
                 } else {
