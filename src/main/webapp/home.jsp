@@ -42,8 +42,16 @@
 
 			<div id="mvain-na" class="collapse navbar-collapse">
 				<ul class="navbar-nav ml-auto ">
-					<li class="mr-3"><a href="#" class="nav-item nav-link active">Trang
-							chủ</a></li>
+					<c:choose>
+						<c:when test="${user != null && user.roleId != 1}">
+							<li class="mr-3"><a href="default?page=adminHome"
+								class="nav-item nav-link active">Trang chủ</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="mr-3"><a href="#"
+								class="nav-item nav-link active">Trang chủ</a></li>
+						</c:otherwise>
+					</c:choose>
 					<li class="mr-3"><a href="#" class="nav-item nav-link">Giới
 							thiệu</a></li>
 					<li class="mr-3"><a href="#" class="nav-item nav-link">Nội
@@ -60,7 +68,7 @@
 		<div class="row">
 			<div class="border-img" style="height: auto; margin-top: 15px;">
 				<img style="border-radius: 15px;" width="100%; margin-bottom: 15px"
-					src="PORTAL_DOCUMENT-IDidValue.jpg" alt="">
+					src="images/home/NongLamLibrary.jpg" alt="">
 			</div>
 		</div>
 	</div>
@@ -98,7 +106,6 @@
 				</div>
 				<c:choose>
 					<c:when test="${user != null}">
-
 						<div class="dropdown"
 							style="width: 200px; position: relative; left: 30px; top: 40px;">
 							<button class="btn" type="button" id="dropdownMenuButton"
@@ -111,7 +118,7 @@
 									style="font-size: 16px">Thông tin tài khoản</span></a> <a
 									class="dropdown-item" href="#"><span
 									style="font-size: 16px">Thông tin mượn sách</span></a> <a
-									class="dropdown-item" href="#"><span
+									class="dropdown-item" href="/QLTV/logout"><span
 									style="font-size: 16px">Đăng xuất</span></a>
 							</div>
 						</div>
