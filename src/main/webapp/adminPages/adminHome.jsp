@@ -14,6 +14,10 @@
 .pointer {
 	cursor: pointer !important;
 }
+
+.left-25px {
+	left: -25px !important;
+}
 </style>
 <script>
 	function clickNav(page, target) {
@@ -29,8 +33,15 @@
 				$("#content").append(result);
 			})
 			break;
-		case  "getUserInfoPage":
-			$.get("default?page=getUserInfo", result => {
+		case  "getUserInfo_borrowPage":
+			$.get("default?page=getUserInfo&activity=borrow", result => {
+				console.log(result);
+				$("#content").children().remove();
+				$("#content").append(result);
+			})
+			break;
+		case  "getUserInfo_payPage":
+			$.get("default?page=getUserInfo&activity=pay", result => {
 				console.log(result);
 				$("#content").children().remove();
 				$("#content").append(result);
@@ -64,7 +75,46 @@
 				$("#content").append(result);
 			})
 			break;
-		}		
+		}
+	}
+	
+	function getUserInfo(activity) {
+		console.log( $("#libraryCardId").val());
+		$.post(
+				"getUserInfo",
+				{"libraryCardId": $("#libraryCardId").val(), "activity": activity},
+				result => {
+					if (result.includes("error")) {
+						alert("* Mã thẻ thư viện không đúng! Vui lòng kiểm tra lại!")
+					} else {
+						$("#content").children().remove();
+						$("#content").append(result);						
+					}
+				})
+	}
+	
+	function addBook() {
+		console.log($("#barcode").val());
+		$.post(
+				"addBook",
+				{"barcode": $("#barcode").val()},
+				result => {
+					if (result.includes("error")) {
+						alert("* Mã sách không đúng! Vui lòng kiểm tra lại!")
+					} else {
+						const book = JSON.parse(result);
+						$("#info tbody").append(
+								"<tr>" 
+							+	"<td>Có sẵn</td>"
+							+	"<td>"+ book.date +"</td>"
+							+	"<td>"+ book.barcode +"</td>"
+							+	"<td>"+ book.title +"</td>"
+							+	"<td>"+ book.author +"</td>"
+							+	"<td>"+ book.publisher +"</td>"
+							+	"<td>"+ book.price +"</td>"
+							+	"</tr>")
+					}						
+				})
 	}
 </script>
 </head>

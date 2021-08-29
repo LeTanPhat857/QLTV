@@ -5,10 +5,10 @@
         <li class="nav-item pointer  selected" onclick="clickNav('overviewPage', this)">
             <a class="nav-link pointer">Tổng quan</a>
         </li>
-        <li class="nav-item pointer" onclick="clickNav('getUserInfoPage', this)">
+        <li class="nav-item pointer" onclick="clickNav('getUserInfo_borrowPage', this)">
             <a class="nav-link" >Mượn sách</a>
         </li>
-        <li class="nav-item pointer" onclick="clickNav('getUserInfoPage', this)">
+        <li class="nav-item pointer" onclick="clickNav('getUserInfo_payPage', this)">
             <a class="nav-link">Trả sách</a>
         </li>
         <li class="nav-item pointer" onclick="clickNav('manageReaderPage', this)">

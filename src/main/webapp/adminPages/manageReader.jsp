@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <div class="content d-flex justify-content-between"
-	style="height: auto;">
+	style="height: auto; padding-top: 5px">
 	<div class="title  p-2 bd-highlight">Quản lý đọc giả</div>
 	<a type="button" href="default?page=registerLibraryCard"
 		style="width: 180px; height: 38px; margin-top: auto; margin-bottom: auto"
