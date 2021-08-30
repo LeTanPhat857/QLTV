@@ -238,7 +238,8 @@
 						nhập</h5>
 					<button type="button" class="close " data-dismiss="modal"
 						aria-label="Close" style="outline: none;">
-						<span aria-hidden="true" style="font-size: 20px">&times;</span>
+						<span aria-hidden="true"
+							style="font-size: 20px; margin-right: 10px">&times;</span>
 					</button>
 				</div>
 
@@ -294,7 +295,8 @@
 						mật khẩu ?</h5>
 					<button type="button" class="close " data-dismiss="modal"
 						aria-label="Close" style="outline: none;">
-						<span aria-hidden="true" style="font-size: 20px">&times;</span>
+						<span aria-hidden="true"
+							style="font-size: 20px; margin-right: 10px">&times;</span>
 					</button>
 				</div>
 

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import model.object.BorrowedBook;
 
-@WebServlet("/cancelBorrow")
-public class CancelBorrow extends HttpServlet {
+@WebServlet("/cancelBorrowAndPayBook")
+public class CancelBorrowAndPayBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +25,11 @@ public class CancelBorrow extends HttpServlet {
 		// reset borrowedBooks
 		session.setAttribute("preparedBooks", new LinkedList<BorrowedBook>());
 		// response
-		request.getRequestDispatcher("default?page=borrowBook").forward(request, response);
+		if (request.getParameter("activity").contentEquals("borrow")) {
+			request.getRequestDispatcher("default?page=borrowBook").forward(request, response);			
+		} else {			
+			request.getRequestDispatcher("default?page=payBook").forward(request, response);			
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

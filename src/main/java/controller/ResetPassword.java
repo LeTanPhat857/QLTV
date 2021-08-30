@@ -1,18 +1,17 @@
 package controller;
 
-import model.DAO.UserDAO;
-import model.object.User;
-import model.utils.MailSender;
-import model.utils.Random;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import model.DAO.UserDAO;
+import model.object.User;
+import model.utils.MailSender;
+import model.utils.Random;
 
 @WebServlet( "/resetPassword")
 public class ResetPassword extends HttpServlet {
@@ -32,16 +31,14 @@ public class ResetPassword extends HttpServlet {
         // processing
         String email = request.getParameter("email");
         String randomKey = request.getParameter("key");
-
         User user = UserDAO.getUserByEmail(email);
-
+        // response
         response.sendRedirect(checkAndSendEmail(user, randomKey));
     }
 
     private String checkAndSendEmail(User user, String randomKey) {
         if (user != null && user.getRandomKey().contentEquals(randomKey) && UserDAO.checkGetPassTimeByEmail(user.getEmail(), 30 * 60 * 1000)) {
             String newPass = new Random().createRandomString(8);
-
             if (UserDAO.resetPassByEmail(user.getEmail(), newPass) && new MailSender().sendNewPassMail(user.getEmail(), newPass)) {
                 if (user.getRoleId() == 1) {
                     return "default?page=home";
@@ -50,7 +47,6 @@ public class ResetPassword extends HttpServlet {
                 }
             }
         }
-
         return "default?page=login";
     }
 }

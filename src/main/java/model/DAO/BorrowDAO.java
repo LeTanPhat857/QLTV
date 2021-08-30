@@ -1,7 +1,6 @@
 package model.DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -65,23 +64,21 @@ public class BorrowDAO {
 			// commit
 			connection.commit();
 			// return
-			return 1 == preparedStatement1.executeUpdate() && 1 == preparedStatement.executeUpdate();
+			boolean result =  1 == preparedStatement1.executeUpdate() && 1 == preparedStatement.executeUpdate();
+			connection.setAutoCommit(true);
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (connection != null) {
 				try {
 					connection.rollback();
+					connection.setAutoCommit(true);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
 			}
 		}
 		// reset autocommit
-		try {
-			connection.setAutoCommit(true);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return false;
 	}
 }

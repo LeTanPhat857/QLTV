@@ -1,7 +1,5 @@
 package model.object;
 
-import java.sql.Date;
-
 public class Role {
     // fields
     private int id;

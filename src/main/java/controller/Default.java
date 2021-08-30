@@ -34,9 +34,9 @@ public class Default extends HttpServlet {
 		case "overview":
 			request.getRequestDispatcher("adminPages/overview.jsp").forward(request, response);
 			break;
-		case "getUserInfo":
+		case "confirmLibraryCard":
 			request.setAttribute("activity", request.getParameter("activity"));
-			request.getRequestDispatcher("adminPages/getUserInfo.jsp").forward(request, response);
+			request.getRequestDispatcher("adminPages/confirmLibraryCard.jsp").forward(request, response);
 			break;
 		case "manageReader":
 			request.getRequestDispatcher("adminPages/manageReader.jsp").forward(request, response);

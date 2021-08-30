@@ -1,12 +1,11 @@
 package model.DAO;
 
-import model.DBConnection.DBConnection;
-import model.object.Role;
-import model.object.User;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import model.DBConnection.DBConnection;
+import model.object.Role;
 
 public class RoleDAO {
     // methods

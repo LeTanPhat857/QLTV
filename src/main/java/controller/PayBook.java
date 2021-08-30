@@ -19,8 +19,8 @@ import model.object.Book;
 import model.object.BorrowedBook;
 import model.object.User;
 
-@WebServlet("/borrowBook")
-public class BorrowBook extends HttpServlet {
+@WebServlet("/payBook")
+public class PayBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,8 +39,8 @@ public class BorrowBook extends HttpServlet {
 		if (preparedBooks != null && !preparedBooks.isEmpty()) {
 			// save history in Database and update bookStatus
 			for (Book book : preparedBooks) {
-				boolean result = HistoryDAO.createBorrowHistoryAndUpdateBookStatus(
-						new Timestamp(System.currentTimeMillis()), "", book.getId(), reader.getId());
+				boolean result = HistoryDAO
+						.updatePayHistoryAndUpdateBookStatus(new Timestamp(System.currentTimeMillis()), book.getId());
 
 				if (!result) {
 					printWriter.println("databaseError");
@@ -53,7 +53,7 @@ public class BorrowBook extends HttpServlet {
 			session.setAttribute("borrowedBooks", borrowedBooks);
 			session.setAttribute("preparedBooks", preparedBooks);
 			// response
-			request.getRequestDispatcher("default?page=borrowBook").forward(request, response);
+			request.getRequestDispatcher("default?page=payBook").forward(request, response);
 		} else {
 			printWriter.println("bookError");
 		}
