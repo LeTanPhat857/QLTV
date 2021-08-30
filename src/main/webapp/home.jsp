@@ -107,11 +107,11 @@
 				<c:choose>
 					<c:when test="${user != null}">
 						<div class="dropdown"
-							style="width: 200px; position: relative; left: 30px; top: 40px;">
+							style="width: 200px; position: relative; left: 30px; top: 35px;">
 							<button class="btn" type="button" id="dropdownMenuButton"
 								data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
-								<span style="font-size: 20px">${user.userName}</span>
+								<span style="font-size: 20px">${user.name}</span>
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item" href="#"><span
@@ -272,7 +272,7 @@
                 {libraryCardId: $('#libraryCardId').val(), password: $('#password').val()},
                 result => {
                     console.log(result);
-                    if (result.includes("Error")) {
+                    if (result.includes("error")) {
                         alert("* Sai thông tin đăng nhập! Vui lòng nhập lại!");
                     } else {
                         $('#loginForm').attr('action', result).submit();

@@ -4,28 +4,27 @@ import java.sql.Date;
 
 public class Role {
     // fields
-    private int roleId;
-    private String roleName;
+    private int id;
+    private String role;
     private String description;
-    private Date createDate;
 
     // constructor
 
     // methods
-    public int getRoleId() {
-        return roleId;
+    public int getId() {
+        return id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRole(String roleName) {
+        this.role = roleName;
     }
 
     public String getDescription() {
@@ -34,13 +33,5 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 }

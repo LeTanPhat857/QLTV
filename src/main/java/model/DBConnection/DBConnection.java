@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DBConnection {
-    static Connection connection;
+    public static Connection connection;
 
     public static PreparedStatement connect(String sql) throws ClassNotFoundException, SQLException {
             if (connection == null || connection.isClosed()) {

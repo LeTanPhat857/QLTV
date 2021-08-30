@@ -5,35 +5,53 @@ import java.sql.Timestamp;
 
 public class User {
     // fields
+	private int id;
     private int libraryCardId;
-    private String userName;
+    private String password;
+    private String name;
+    private String CMND;
     private String gender;
     private Date birthday;
+    private String imgLink;
     private String email;
     private String address;
-    private String cmnd;
-    private String password;
-    private Date createDate;
-    private String imgLink;
+    private Date createdDate;
     private String randomKey;
     private Timestamp getPassTime;
     private int userStatusId;
     private int roleId;
-
     // constructor
     
     // methods
-	public int getLibraryCardId() {
+    public int getLibraryCardId() {
 		return libraryCardId;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public void setLibraryCardId(int libraryCardId) {
 		this.libraryCardId = libraryCardId;
 	}
-	public String getUserName() {
-		return userName;
+	public String getPassword() {
+		return password;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCMND() {
+		return CMND;
+	}
+	public void setCMND(String cMND) {
+		CMND = cMND;
 	}
 	public String getGender() {
 		return gender;
@@ -42,10 +60,16 @@ public class User {
 		this.gender = gender;
 	}
 	public Date getBirthday() {
-		return birthday;
+		return this.birthday;
 	}
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+	public String getImgLink() {
+		return imgLink;
+	}
+	public void setImgLink(String imgLink) {
+		this.imgLink = imgLink;
 	}
 	public String getEmail() {
 		return email;
@@ -59,29 +83,11 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getCmnd() {
-		return cmnd;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
-	public void setCmnd(String cmnd) {
-		this.cmnd = cmnd;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public Date getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-	public String getImgLink() {
-		return imgLink;
-	}
-	public void setImgLink(String imgLink) {
-		this.imgLink = imgLink;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 	public String getRandomKey() {
 		return randomKey;
@@ -107,5 +113,4 @@ public class User {
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
-
 }

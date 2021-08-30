@@ -4,6 +4,7 @@ import model.DAO.RoleDAO;
 import model.DAO.UserDAO;
 import model.object.Role;
 import model.object.User;
+import model.utils.Convert;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet( "/login")
-public class LoginController extends HttpServlet {
-    /**
-	 * 
-	 */
+public class Login extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,17 +30,17 @@ public class LoginController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter printWriter = response.getWriter();
         // get user
-        String libraryCardId = request.getParameter("libraryCardId");
+		Integer libraryCardId = Convert.convertStringToInt(request.getParameter("libraryCardId"));
         String password = request.getParameter("password");
 
         User user = null;
-        if (libraryCardId.length() != 0 && password.length() != 0) {
+        if (libraryCardId != null && password.length() != 0) {
             user = UserDAO.getUserByLogin(libraryCardId, password);
         }
 
         // processing
         if (user == null) {
-            printWriter.println("Error");
+            printWriter.println("error");
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
@@ -49,7 +48,7 @@ public class LoginController extends HttpServlet {
             if (user.getRoleId() == 1) {
                 printWriter.println("default?page=home");
             } else {
-                printWriter.println("default?page=staffHome");
+                printWriter.println("default?page=adminHome");
             }
         }
     }

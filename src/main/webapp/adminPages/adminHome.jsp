@@ -21,10 +21,11 @@
 </style>
 <script>
 	function clickNav(page, target) {
+		console.log("navi page: " + page);
+		// change selected
 		$(".navigation > ul li").removeClass("selected");
 		$(target).addClass("selected");
-		console.log(page);
-		
+		// get page
 		switch (page) {
 		case "overviewPage":
 			$.get("default?page=overview", result => {
@@ -38,6 +39,7 @@
 				console.log(result);
 				$("#content").children().remove();
 				$("#content").append(result);
+				$("#libraryCardId").focus();
 			})
 			break;
 		case  "getUserInfo_payPage":
@@ -45,6 +47,7 @@
 				console.log(result);
 				$("#content").children().remove();
 				$("#content").append(result);
+				$("#libraryCardId").focus();
 			})
 			break;
 		case  "manageReaderPage":
@@ -79,41 +82,90 @@
 	}
 	
 	function getUserInfo(activity) {
-		console.log( $("#libraryCardId").val());
+		console.log("libraryCardId: " + $("#libraryCardId").val());
 		$.post(
 				"getUserInfo",
 				{"libraryCardId": $("#libraryCardId").val(), "activity": activity},
 				result => {
+					console.log("getUserInfo: " + result);
 					if (result.includes("error")) {
-						alert("* Mã thẻ thư viện không đúng! Vui lòng kiểm tra lại!")
+						alert("* Mã thẻ thư viện không hợp lệ! Vui lòng kiểm tra lại!");
 					} else {
 						$("#content").children().remove();
 						$("#content").append(result);						
+						$("#barcode").focus();
 					}
 				})
+		$("#libraryCardId").val("");
+	}
+	
+	function getUserInfo_keyEvent(event, activity) {
+		console.log("key event: " + event.key + ", activity: " + activity);
+		console.log("libraryCardId: " + $("#libraryCardId").val());
+		if	(event.keyCode === 13 || event.which === 13) {
+			console.log(event.keyCode);
+			getUserInfo(activity);
+		}
 	}
 	
 	function addBook() {
-		console.log($("#barcode").val());
+		console.log("barcode: " + $("#barcode").val());
 		$.post(
 				"addBook",
 				{"barcode": $("#barcode").val()},
 				result => {
-					if (result.includes("error")) {
-						alert("* Mã sách không đúng! Vui lòng kiểm tra lại!")
+					console.log(result);
+					
+					const response = JSON.parse(result);
+					if (response.status.includes("error")) {
+						alert(response.data);
 					} else {
-						const book = JSON.parse(result);
 						$("#info tbody").append(
 								"<tr>" 
 							+	"<td>Có sẵn</td>"
-							+	"<td>"+ book.date +"</td>"
-							+	"<td>"+ book.barcode +"</td>"
-							+	"<td>"+ book.title +"</td>"
-							+	"<td>"+ book.author +"</td>"
-							+	"<td>"+ book.publisher +"</td>"
-							+	"<td>"+ book.price +"</td>"
+							+	"<td>"+ response.data.date +"</td>"
+							+	"<td>"+ response.data.barcode +"</td>"
+							+	"<td>"+ response.data.title +"</td>"
+							+	"<td>"+ response.data.author +"</td>"
+							+	"<td>"+ response.data.publisher +"</td>"
+							+	"<td>"+ response.data.price +"</td>"
 							+	"</tr>")
 					}						
+				})
+	$("#barcode").val("");
+	}
+	
+	function addBook_keyEvent(event) {
+		console.log("key event: " + event.key);
+		console.log("barcode: " + $("#barcode").val());
+		if	(event.keyCode === 13 || event.which === 13) {
+			console.log(event.keyCode);
+			addBook();
+		}
+	}
+	
+	function borrowBook() {
+		$.get(
+				"borrowBook",
+				result => {
+					console.log(result);
+					if (result.includes("error")) {
+						alert("* Không thể mượn sách! Sách chưa được thêm vào hàng đợi!")
+					} else {
+						$("#content").children().remove();
+						$("#content").append(result);	
+						alert("Mượn sách thành công! Lịch sử mượn sách đã được lưu vào cơ sở dữ liệu!");
+					}
+				})
+	}
+	
+	function cancelBorrow() {
+		$.get(
+				"cancelBorrow",
+				result => {
+					console.log(result);
+					$("#content").children().remove();
+					$("#content").append(result);	
 				})
 	}
 </script>

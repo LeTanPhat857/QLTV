@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet( "/resetPassword")
-public class ResetPasswordController extends HttpServlet {
+public class ResetPassword extends HttpServlet {
     /**
 	 * 
 	 */
