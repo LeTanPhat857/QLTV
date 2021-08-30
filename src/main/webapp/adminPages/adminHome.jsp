@@ -136,7 +136,7 @@
 	}
 	
 	function addBook_keyEvent(event) {
-		console.log("key event: " + event.key);
+		console.log("key event: " + event.keyCode);
 		console.log("barcode: " + $("#barcode").val());
 		if	(event.keyCode === 13 || event.which === 13) {
 			console.log(event.keyCode);

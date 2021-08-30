@@ -38,6 +38,18 @@ public class BookDAO {
 		return null;
 	}
 	
+	public static boolean updateBorrowedStatusById(int id) {
+		try {
+			String query = "update Book set bookStatus = 2 where id = ?";
+			PreparedStatement preparedStatement = DBConnection.connect(query);
+			preparedStatement.setInt(1, id);
+			return 1 == preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(getBookByBarcode(85970001).getTitle());;
 	}

@@ -1,6 +1,6 @@
 package model.utils;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class Convert {
@@ -16,7 +16,7 @@ public class Convert {
 		return null;
 	}
 
-	public static String convertDateToString(Date date) {
+	public static String convertDateToString(Timestamp date) {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			String string = formatter.format(date);
@@ -27,7 +27,7 @@ public class Convert {
 		return null;
 	}
 
-	public static String convertTimeToString(Date date) {
+	public static String convertTimeToString(Timestamp date) {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
 			String string = formatter.format(date);

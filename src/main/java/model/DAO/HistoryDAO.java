@@ -3,6 +3,7 @@ package model.DAO;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class HistoryDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				BorrowedBook book = new BorrowedBook();
-				book.setDate(resultSet.getDate("borrowDate"));
+				book.setDate(resultSet.getTimestamp("borrowDate"));
 				book.setBarcode(resultSet.getInt("barcode"));
 				book.setTitle(resultSet.getString("title"));
 				book.setAuthor(resultSet.getString("name"));
@@ -36,12 +37,12 @@ public class HistoryDAO {
 		return null;
 	}
 
-	public static boolean createHistory(Date borrowDate, Date payDate, String note, int bookId, int userId) {
+	public static boolean createHistory(Timestamp borrowDate, Timestamp payDate, String note, int bookId, int userId) {
 		try {
 			String query = "insert into History(borrowDate, payDate, note, bookId, userId) values (?, ?, ?, ?, ?)";
 			PreparedStatement preparedStatement = DBConnection.connect(query);
-			preparedStatement.setDate(1, borrowDate);
-			preparedStatement.setDate(2, payDate);
+			preparedStatement.setTimestamp(1, borrowDate);
+			preparedStatement.setTimestamp(2, payDate);
 			preparedStatement.setString(3, note);
 			preparedStatement.setInt(4, bookId);
 			preparedStatement.setInt(5, userId);
@@ -53,6 +54,8 @@ public class HistoryDAO {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(createHistory(new Date(2021, 8, 23), null, "", 2, 1));
+//		System.out.println(createHistory(new Date(2021, 8, 23), null, "", 2, 1));
+		System.out.println(new Timestamp(System.currentTimeMillis()));
+		System.out.println(new Date(System.currentTimeMillis()));
 	}
 }

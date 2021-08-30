@@ -1,10 +1,10 @@
 package model.object;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BorrowedBook {
 	// fields
-	private Date date;
+	private Timestamp date;
 	private int barcode;
 	private String title;
 	private String author;
@@ -14,10 +14,10 @@ public class BorrowedBook {
 	// constructor
 	
 	// methods
-	public Date getDate() {
+	public Timestamp getDate() {
 		return this.date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public int getBarcode() {

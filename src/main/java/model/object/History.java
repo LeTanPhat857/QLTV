@@ -1,12 +1,12 @@
 package model.object;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class History {
 	// fields
 	private int id;
-	private Date borrowDate;
-	private Date payDate;
+	private Timestamp borrowDate;
+	private Timestamp payDate;
 	private String note;
 	private int bookId;
 	private int userId;
@@ -20,16 +20,16 @@ public class History {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getBorrowDate() {
+	public Timestamp getBorrowDate() {
 		return borrowDate;
 	}
-	public void setBorrowDate(Date borrowDate) {
+	public void setBorrowDate(Timestamp borrowDate) {
 		this.borrowDate = borrowDate;
 	}
-	public Date getPayDate() {
+	public Timestamp getPayDate() {
 		return payDate;
 	}
-	public void setPayDate(Date payDate) {
+	public void setPayDate(Timestamp payDate) {
 		this.payDate = payDate;
 	}
 	public String getNote() {

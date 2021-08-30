@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.DAO.BookDAO;
+import model.DAO.BorrowDAO;
 import model.DAO.HistoryDAO;
 import model.object.Book;
 import model.object.BorrowedBook;
@@ -37,9 +40,13 @@ public class BorrowBook extends HttpServlet {
 		List<Book> preparedBooks = (List<Book>) session.getAttribute("preparedBooks");
 		// check preparedBooks
 		if (preparedBooks != null && !preparedBooks.isEmpty()) {
-			// save history in Database
+			// save history in Database and update bookStatus
 			for (Book book : preparedBooks) {
-				HistoryDAO.createHistory(new Date(System.currentTimeMillis()), null, "", book.getId(), reader.getId());
+				boolean result =BorrowDAO.createHistoryAndUpdateBookStatus(new Timestamp(System.currentTimeMillis()), null, "", book.getId(), reader.getId());
+//				if (!result) {
+//					printWriter.println("error");
+//					return;
+//				}
 			}
 			// update borrowedBooks and preparedBook
 			List<BorrowedBook> borrowedBooks = HistoryDAO.getBorrowedBookByLibraryCardId(reader.getLibraryCardId());

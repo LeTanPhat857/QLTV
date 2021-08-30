@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -69,12 +69,12 @@ public class AddBook extends HttpServlet {
 										Publisher publisher = PublisherDAO.getPublisherById(book.getPublisherId());
 										// sent json
 										json = "{\"status\":\"ok\", \"data\":{\"date\": \""
-												+ Convert.convertTimeToString(new Date(System.currentTimeMillis())) + "\", \"barcode\": "
+												+ Convert.convertTimeToString(new Timestamp(System.currentTimeMillis())) + "\", \"barcode\": "
 												+ book.getBarcode() + ", \"title\": \"" + book.getTitle()
 												+ "\", \"author\": \"" + author.getName() + "\", \"publisher\": \""
 												+ publisher.getPublisher() + "\", \"price\":\"" + Convert.convertIntToMoney(book.getPrice()) + " đ\"}}";
 									} else {
-										json = "{\"status\":\"error\", \"data\":\"Không thể thêm sách! Số lượng sách được đạt tối đa!\"}";
+										json = "{\"status\":\"error\", \"data\":\"Không thể thêm sách! Số lượng sách đạt tối đa!\"}";
 									}
 								} else {
 									json = "{\"status\":\"error\", \"data\":\"Không thể thêm sách! Sách đã được thêm vào hàng đợi!\"}";
@@ -83,7 +83,7 @@ public class AddBook extends HttpServlet {
 								json = "{\"status\":\"error\", \"data\":\"Không thể thêm sách! Sách đang được mượn!\"}";
 							}
 						} else {
-							json = "{\"status\":\"error\", \"data\":\"Không thể mượn sách! Bản sách chỉ tham thảo tại chỗ!\"}";
+							json = "{\"status\":\"error\", \"data\":\"Không thể mượn sách! Bản sách không có sẵn!\"}";
 						}
 					} else {
 						json = "{\"status\":\"error\", \"data\":\"Mã sách không tồn tại! Vui lòng kiểm tra lại!\"}";
