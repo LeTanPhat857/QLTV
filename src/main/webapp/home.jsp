@@ -1,6 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,9 +14,7 @@
 
 <!-- Font Awesome -->
 <link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-	crossorigin="anonymous">
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -77,7 +76,7 @@
 	<div class="container">
 		<div class="row justify-content-between">
 			<div class="border-searchbook mt-4">
-				<div class="title-searchbook">
+				<div class="title-searchbook  font-weight-bold">
 					<h2 class="text-searchbook">Tìm sách</h2>
 				</div>
 				<div class="button-sb">
@@ -101,7 +100,7 @@
 			</div>
 
 			<div class="border-account mt-4 ml-4">
-				<div class="title-account">
+				<div class="title-account  font-weight-bold">
 					<h2 class="text-account">Tài khoản thư viện</h2>
 				</div>
 				<c:choose>
@@ -138,92 +137,123 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="border-new mt-4 mb-3"
-				style="height: 100%; padding-bottom: 40px;">
-				<div class="title-new">
+			<div class="border-new mt-4"
+				style="width: 100%; height: 100%; border: 1px solid #3486e2; border-radius: 20px;">
+				<div class="font-weight-bold ml-5 mt-4"
+					style="width: 200px; border-bottom: 1px solid #3486e2;">
 					<h2 class="text-new">Tin tức - thông báo</h2>
 				</div>
 
-				<div class="bordernew mb-4">
-					<div class="new ml-5 ">
-						<div class="row">
-							<div class="bd-img ml-4">
-								<img src="" alt="">
-							</div>
-							<div class="information">
-								<div class="title-newpaper" style="font-weight: bold;">Sinh
-									viên có thể dkmh khi chưa thanh toán học phí</div>
-								<div class="ngaytao">05/08/2021</div>
-								<div class="noidung">Hiện nay dịch bệnh đang khó khắn, nhà
-									trường quyết định dời thời hạn đóng học phí đến học kì I năm
-									học 2021-2022</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="bordernew mb-4">
-					<div class="new ml-5 ">
-						<div class="row">
-							<div class="bd-img ml-4">
-								<img src="" alt="">
-							</div>
-							<div class="information">
-								<div class="title-newpaper" style="font-weight: bold;">Sinh
-									viên có thể dkmh khi chưa thanh toán học phí</div>
-								<div class="ngaytao">05/08/2021</div>
-								<div class="noidung">Hiện nay dịch bệnh đang khó khắn, nhà
-									trường quyết định dời thời hạn đóng học phí đến học kì I năm
-									học 2021-2022</div>
+				<div id="newsList">
+					<c:forEach var="news" items="${newsList}">
+						<div class="m-5 p-3"
+							style="border: 1px solid #3486e2; border-radius: 20px;">
+							<div class="row ml-5">
+								<div class="" style="border: 1px solid #3486e2;">
+									<img style="width: 100px; height: 110px;" src="${news.imgLink}"
+										alt="">
+								</div>
+								<div class="ml-5">
+									<div class="font-weight-bold" style="">${news.title}</div>
+									<div class="">
+										<fmt:formatDate pattern="dd/MM/yyyy"
+											value="${news.createdDate}" />
+									</div>
+									<div class="">${news.content}</div>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:forEach>
 				</div>
 
+				<div style="" class="d-flex justify-content-end pr-5">
+					<nav aria-label="...">
+						<ul class="font-weight-bold pagination pagination-lg">
+							<li id="previousNews" class="page-item disabled"><a
+								class="page-link" onclick="getNewsList('previous')"
+								style="cursor: pointer">Trước</a></li>
 
-				<div class="bordernew mb-4">
-					<div class="new ml-5 ">
-						<div class="row">
-							<div class="bd-img ml-4">
-								<img src="" alt="">
-							</div>
-							<div class="information">
-								<div class="title-newpaper" style="font-weight: bold;">Sinh
-									viên có thể dkmh khi chưa thanh toán học phí</div>
-								<div class="ngaytao">05/08/2021</div>
-								<div class="noidung">Hiện nay dịch bệnh đang khó khắn, nhà
-									trường quyết định dời thời hạn đóng học phí đến học kì I năm
-									học 2021-2022</div>
-							</div>
-						</div>
-					</div>
+							<li class="page-item"><input id="newsPage" value="1"
+								size="1" maxlength="2" onkeypress="getNewsList_keyEvent()"
+								class="font-weight-bolder page-link text-center" /></li>
+
+							<li id="nextNews" class="page-item"><a class="page-link"
+								onclick="getNewsList('next')" style="cursor: pointer">Sau</a></li>
+						</ul>
+					</nav>
 				</div>
-
 			</div>
 		</div>
 	</div>
 
+	<script>
+	function getNewsList_keyEvent() {
+		if	(event.keyCode === 13 || event.which === 13) {
+			console.log(event.keyCode);
+			getNewsList('current');
+		}
+	}
+	
+	function getNewsList(activity) {
+		var page = parseInt($("#newsPage").val());
+		
+		if (activity === "previous") {
+			page = parseInt($("#newsPage").val()) - 1;
+		}
+		
+		if (activity === "next") {
+			page = parseInt($("#newsPage").val()) + 1;
+		}
+		
+		$.post(
+				"getNewsList",
+				{"page":page},
+				result => {
+					console.log(result);
+					
+					if (result === "error") {
+						alert("* Đã có lỗi xảy ra! Vui lòng kiểm tra lại!")
+					}  else if (result === "out") {
+						alert("* Đã hết tin tức! Không thể tải thêm!");
+					} else {
+						$("#newsList").html("");
+						$("#newsList").append(result);
+						
+						$("#newsPage").val(page);
+						$("#previousNews").removeClass("disabled");
+						
+						if ($("#newsPage").val() == 1) {
+							$("#previousNews").addClass("disabled");
+						}
+					}
+				})
+	}
+</script>
+
+
 	<footer class="container">
 		<div class="row">
-			<div class="border-copyright mt-4 p-2" style="color: azure;">
-				<div class="left ml-5 mt-3">
-					<div class="copyright">Copyright by LTP.Company</div>
-					<div class="address">Nong Lam University</div>
+			<div class="border-copyright mt-4 p-2"
+				style="color: azure; height: 70px;">
+				<div class="d-flex flex-column justify-content-around left ml-5"
+					style="height: auto">
+					<div class="address" style="height: auto">Nong Lam University</div>
+					<div class="copyright" style="height: auto; font-size: 18px">Copyright
+						by LTP.Company</div>
 				</div>
-				<div class="right mt-3">
-					<div class="access-account">
-						<div class="title-access">Lượt truy cập hôm nay:</div>
-						<div class="amount-access">1000</div>
+				<div
+					class="d-flex flex-column font-italic font-weight-light justify-content-around ml-5 right"
+					style="height: auto">
+					<div class="access-account" style="height: auto">
+						<div class="title-access">Lượt truy cập hôm nay: 1000</div>
 					</div>
-					<div class="sum-access">
-						<div class="title-sum">Tổng số lượng truy cập:</div>
-						<div class="amount-access-sum">20000</div>
+					<div class="sum-access" style="height: auto">
+						<div class="title-sum">Tổng số lượng truy cập: 20000</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
-
 
 	<!-- Login modal -->
 	<div id="loginModal" class="modal fade bd-example-modal-lg"
@@ -265,7 +295,7 @@
 		</div>
 	</div>
 	<!-- Login script -->
-	<form method="post" action="" id="loginForm" hidden></form>
+	<form method="post" action="" id="loginForm" class="d-none"></form>
 	<script>
         $('#loginButton').click(function () {
             $.post(
@@ -273,7 +303,7 @@
                 {libraryCardId: $('#libraryCardId').val(), password: $('#password').val()},
                 result => {
                     console.log(result);
-                    if (result.includes("error")) {
+                    if (result === "error") {
                         alert("* Sai thông tin đăng nhập! Vui lòng nhập lại!");
                     } else {
                         $('#loginForm').attr('action', result).submit();
@@ -314,7 +344,7 @@
 		</div>
 	</div>
 	<!-- ForgetPass scipt -->
-	<form method="post" action="" id="forgetPassForm" hidden></form>
+	<form method="post" action="" id="forgetPassForm" class="d-none"></form>
 	<script>
         $('#forgetPassButton').click(function () {
         	$("#loginModal").modal("hide");
