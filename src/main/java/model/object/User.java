@@ -113,4 +113,14 @@ public class User {
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", libraryCardId=" + libraryCardId + ", password=" + password + ", name=" + name
+				+ ", CMND=" + CMND + ", gender=" + gender + ", birthday=" + birthday + ", imgLink=" + imgLink
+				+ ", email=" + email + ", address=" + address + ", createdDate=" + createdDate + ", randomKey="
+				+ randomKey + ", getPassTime=" + getPassTime + ", userStatusId=" + userStatusId + ", roleId=" + roleId
+				+ "]";
+	}
+	
+	
 }

@@ -20,10 +20,16 @@ public class Book {
     private int batchId;
     
     // constructor
-
+    
     // methods
 	public int getBarcode() {
 		return barcode;
+	}
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 	public int getId() {
 		return id;
@@ -106,4 +112,6 @@ public class Book {
 	public void setBatchId(int batchId) {
 		this.batchId = batchId;
 	}
+	
+	
 }

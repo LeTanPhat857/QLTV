@@ -3,8 +3,10 @@ package model.DAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import model.DBConnection.DBConnection;
+import model.object.User;
 import model.object.UserStatus;
 
 public class UserStatusDAO {
