@@ -187,47 +187,47 @@
 	</div>
 
 	<script>
-	function getNewsList_keyEvent() {
-		if	(event.keyCode === 13 || event.which === 13) {
-			console.log(event.keyCode);
-			getNewsList('current');
-		}
-	}
-	
-	function getNewsList(activity) {
-		var page = parseInt($("#newsPage").val());
-		
-		if (activity === "previous") {
-			page = parseInt($("#newsPage").val()) - 1;
+		function getNewsList_keyEvent() {
+			if	(event.keyCode === 13 || event.which === 13) {
+				console.log(event.keyCode);
+				getNewsList('current');
+			}
 		}
 		
-		if (activity === "next") {
-			page = parseInt($("#newsPage").val()) + 1;
-		}
-		
-		$.post(
-				"getNewsList",
-				{"page":page},
-				result => {
-					console.log(result);
-					
-					if (result === "error") {
-						alert("* Đã có lỗi xảy ra! Vui lòng kiểm tra lại!")
-					}  else if (result === "out") {
-						alert("* Đã hết tin tức! Không thể tải thêm!");
-					} else {
-						$("#newsList").html("");
-						$("#newsList").append(result);
+		function getNewsList(activity) {
+			var page = parseInt($("#newsPage").val());
+			
+			if (activity === "previous") {
+				page = parseInt($("#newsPage").val()) - 1;
+			}
+			
+			if (activity === "next") {
+				page = parseInt($("#newsPage").val()) + 1;
+			}
+			
+			$.post(
+					"getNewsList",
+					{"page":page},
+					result => {
+						console.log(result);
 						
-						$("#newsPage").val(page);
-						$("#previousNews").removeClass("disabled");
-						
-						if ($("#newsPage").val() == 1) {
-							$("#previousNews").addClass("disabled");
+						if (result === "error") {
+							alert("* Đã có lỗi xảy ra! Vui lòng kiểm tra lại!")
+						}  else if (result === "out") {
+							alert("* Đã hết tin tức! Không thể tải thêm!");
+						} else {
+							$("#newsList").html("");
+							$("#newsList").append(result);
+							
+							$("#newsPage").val(page);
+							$("#previousNews").removeClass("disabled");
+							
+							if ($("#newsPage").val() == 1) {
+								$("#previousNews").addClass("disabled");
+							}
 						}
-					}
-				})
-	}
+					})
+		}
 </script>
 
 
@@ -239,7 +239,7 @@
 					style="height: auto">
 					<div class="address" style="height: auto">Nong Lam University</div>
 					<div class="copyright" style="height: auto; font-size: 18px">Copyright
-						by LTP.Company</div>
+						by TheFool Company</div>
 				</div>
 				<div
 					class="d-flex flex-column font-italic font-weight-light justify-content-around ml-5 right"
@@ -294,6 +294,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<!-- Login script -->
 	<form method="post" action="" id="loginForm" class="d-none"></form>
 	<script>

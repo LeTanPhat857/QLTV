@@ -6,12 +6,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import model.DAO.NewsDAO;
 import model.DAO.BookDAO;
 import model.DAO.UserDAO;
 import model.DAO.UserStatusDAO;
 import model.object.Book;
 import model.object.Book_ver2;
 import model.object.User;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,6 +38,7 @@ public class Default extends HttpServlet {
 		switch (page) {
 		// public page
 		case "home":
+			request.setAttribute("newsList", NewsDAO.getNews(3, 1));
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 			break;
 		// admin page
@@ -82,10 +86,12 @@ public class Default extends HttpServlet {
 		case "registerLibraryCard":
 			request.getRequestDispatcher("adminPages/registerLibraryCard.jsp").forward(request, response);
 			break;
+		case "news":
+			request.getRequestDispatcher("news.jsp").forward(request, response);
+			break;
 		case "addStaff":
 			request.getRequestDispatcher("adminPages/addStaff.jsp").forward(request, response);
 			break;
-	
 		}
 
 		response.getWriter().println("404 File not found!");
