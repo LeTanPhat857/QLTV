@@ -10,4 +10,4 @@
 <script src="js/Bootstrap/bootstrap.bundle.min.js"></script>
 <script src="js/Bootstrap/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="staffPages/css/style.css">
+<link rel="stylesheet" href="adminPages/css/style.css">

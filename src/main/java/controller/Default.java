@@ -5,6 +5,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.DAO.NewsDAO;
+
 import java.io.IOException;
 
 @WebServlet("/default")
@@ -24,6 +27,7 @@ public class Default extends HttpServlet {
 		switch (page) {
 		// public page
 		case "home":
+			request.setAttribute("newsList", NewsDAO.getNews(3, 1));
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 			break;
 
@@ -58,6 +62,9 @@ public class Default extends HttpServlet {
 			break;
 		case "registerLibraryCard":
 			request.getRequestDispatcher("adminPages/registerLibraryCard.jsp").forward(request, response);
+			break;
+		case "news":
+			request.getRequestDispatcher("news.jsp").forward(request, response);
 			break;
 		}
 

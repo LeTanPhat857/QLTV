@@ -39,15 +39,15 @@ public class Login extends HttpServlet {
 
         // processing
         if (user == null) {
-            printWriter.println("error");
+            printWriter.print("error");
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("user", user);
 
             if (user.getRoleId() == 1) {
-                printWriter.println("default?page=home");
+                printWriter.print("default?page=home");
             } else {
-                printWriter.println("default?page=adminHome");
+                printWriter.print("default?page=adminHome");
             }
         }
     }

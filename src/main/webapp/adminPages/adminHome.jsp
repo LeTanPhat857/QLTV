@@ -228,7 +228,7 @@
 				<h3 style="margin-top: 30px; color: #0C85FF;">Ngày mới an lành!</h3>
 				<img
 					style="display: block; max-width: 600px; margin: auto; margin-top: 25px;"
-					src="staffPages/images/trangTongQuan.jpg" alt="image">
+					src="adminPages/images/trangTongQuan.jpg" alt="image">
 			</div>
 		</div>
 
