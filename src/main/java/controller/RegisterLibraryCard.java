@@ -16,9 +16,9 @@ public class RegisterLibraryCard extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
+		System.out.println("vo r ek");
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		request.getRequestDispatcher("default?page=registerLibraryCard").forward(request, response);
 	}
 }

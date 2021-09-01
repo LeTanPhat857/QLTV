@@ -19,6 +19,7 @@
 	left: -25px !important;
 }
 </style>
+
 <script>
 	function notify(content) {
 		$("#contentNoti").text(content);
@@ -208,11 +209,118 @@
 				{"activity":activity},
 				result => {
 					console.log(result);
-					$("#content").html("");
+          $("#content").html("");
+					$("#content").append(result);	
+				})
+	}         
+	
+  
+	
+	function cancelRegisterLibraryCard(){
+		console.log('click cancel');
+		$.get(
+				"cancelRegisterLibrary",
+				result => {
+					console.log($("#content").children());
+					$("#content").children().remove();
 					$("#content").append(result);	
 				})
 	}
 	
+	function registerLibraryCard(){
+		console.log('click registerLibraryCard');
+		$.get(
+				"registerLibraryCard",
+				result => {
+					console.log(result);
+					$("#content").children().remove();
+					$("#content").append(result);	
+				})
+	}
+	
+	function deleteReader(libraryCardId){
+		console.log(libraryCardId);
+		$.post(
+				"deleteUser",
+				{"libraryCardId":libraryCardId},
+				result => {
+					if (result.includes("failDeleted!!")) {
+						alert("* Xóa tài khoản không thành công");
+					} else {
+						alert("* Xóa tài khoản "+libraryCardId+" thành công!!");
+						$("#content").children().remove();
+						$("#content").append(result);						
+						$("#barcode").focus();
+					}	
+				})
+	}
+	
+	function confirmRegisterLibraryCard(){
+		console.log($("#studentId").val());
+		console.log("gioi tinh la "+document.querySelector('input[name=sex]:checked').value);
+		console.log($("#studentName").val());
+		console.log($("#CMND").val());
+		console.log($("#birthdayReader").val());
+		console.log($("#inputEmail").val());
+		console.log($("#adressReader").val());
+	}
+	
+	function addStaff(){
+		console.log('nek');
+		$.get(
+				"addStaff",
+				result => {
+					console.log($("#content").children());
+					$("#content").children().remove();
+          	if (result.includes("error")) {
+						alert("* Mã thẻ thư viện không hợp lệ! Vui lòng kiểm tra lại!");
+					} else {
+						$("#content").children().remove();
+						$("#content").append(result);						
+						$("#barcode").focus();
+					}	
+				})
+	}
+	
+	function cancelAddStaf(){
+		$.get("default?page=manageStaff", result => {
+			console.log(result);
+			$("#content").children().remove();
+			$("#content").append(result);
+		})
+	}
+	
+	function addBook(){
+		$.get("default?page=manageStaff", result => {
+			console.log(result);
+			$("#content").children().remove();
+			$("#content").append(result);
+		})
+	}
+			
+		/* $.post(
+				"deleteReader",
+				{"libraryCardId":$("#studentId").val(),
+				"password":123456789,
+				"name":$("#studentName").val(),
+				"CMND":$("#CMND").val(),
+				"gender":document.querySelector('input[name=sex]:checked').value,
+				"birthday":$("#birthdayReader").val(),
+				"email":$("#inputEmail").val(),
+				"address":$("#adressReader").val()
+					},
+					
+				result => {
+					if (result.includes("failDeleted!!")) {
+						alert("* Xóa tài khoản không thành công");
+					} else {
+						alert("* Xóa tài khoản "+libraryCardId+" thành công!!");
+						$("#content").children().remove();
+						$("#content").append(result);						
+						$("#barcode").focus();
+					}	
+				}) */
+
 </script>
 </head>
 
