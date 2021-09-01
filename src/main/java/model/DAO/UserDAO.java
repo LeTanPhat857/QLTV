@@ -6,8 +6,11 @@ import model.object.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class UserDAO {
 	public static User getUserByLibraryCardId(int libraryCardId) {
@@ -170,7 +173,119 @@ public class UserDAO {
 		return true;
 	}
 	
+	public static List<User> getUserList(int roleId) {
+		String sql = "select * from QuanLyThuVien.dbo.Users where QuanLyThuVien.dbo.Users.roleId  = ? and QuanLyThuVien.dbo.Users.userStatusId = ?";
+		List<User> list = new ArrayList<User>();
+		try {
+			PreparedStatement preparedStatement = DBConnection.connect(sql);
+			preparedStatement.setInt(1, roleId);
+			preparedStatement.setInt(2, 1);
+			ResultSet resultSet =  preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setLibraryCardId(resultSet.getInt("libraryCardId"));
+				user.setPassword(resultSet.getString("password"));
+				user.setName(resultSet.getString("name"));
+				user.setCMND(resultSet.getString("CMND"));
+				user.setGender(resultSet.getString("gender"));
+				user.setBirthday(resultSet.getDate("birthday"));
+				user.setEmail(resultSet.getString("email"));
+				user.setAddress(resultSet.getString("address"));
+				user.setCreatedDate(resultSet.getDate("createdDate"));
+				user.setImgLink(resultSet.getString("imgLink"));
+				user.setRandomKey(resultSet.getString("randomKey"));
+				user.setGetPassTime(resultSet.getTimestamp("getPassTime"));
+				user.setRoleId(resultSet.getInt("roleId"));
+				user.setUserStatusId(resultSet.getInt("userStatusId"));
+				list.add(user);
+			}
+				return list;
+			
+		} catch (SQLException | ClassNotFoundException | NumberFormatException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public boolean setInformationUser(User user) {
+		String update = "update Users set QuanLyThuVien.dbo.Users.getPassTime = current_timestamp where id = ?";
+		try {
+			PreparedStatement preparedStatement = DBConnection.connect(update);
+			preparedStatement.setString(1, user.getEmail());
+			preparedStatement.executeUpdate();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean deleteReader(int libraryCardId) {
+		try {
+			String query = "update QuanLyThuVien.dbo.Users set userStatusId = 2 where libraryCardId = ?";
+			PreparedStatement preparedStatement = DBConnection.connect(query);
+			preparedStatement.setInt(1, libraryCardId);
+			return 1 == preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean insertReader(User user) {
+		try {
+			String query = "INSERT INTO QuanLyThuVien.dbo.Users VALUES(? , ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+			PreparedStatement preparedStatement = DBConnection.connect(query);
+			preparedStatement.setInt(1, user.getLibraryCardId());
+			preparedStatement.setString(2, user.getPassword());
+			preparedStatement.setString(3, user.getName());
+			preparedStatement.setString(4, user.getCMND());
+			preparedStatement.setString(5, user.getGender());
+			preparedStatement.setDate(6, user.getBirthday());
+			preparedStatement.setString(7, user.getImgLink());
+			preparedStatement.setString(8, user.getEmail());
+			preparedStatement.setString(9, user.getAddress());
+			preparedStatement.setDate(10, user.getCreatedDate());
+			preparedStatement.setTimestamp(11, user.getGetPassTime());
+			preparedStatement.setString(12, user.getRandomKey());
+			preparedStatement.setInt(13, user.getRoleId());
+			preparedStatement.setInt(14, user.getUserStatusId());
+			return 1 == preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean updateReader(User user) {
+		try {
+			String query = "UPDATE QuanLyThuVien.dbo.Users SET libraryCardId = ?,password = ?,name = ?,CMND = ?,gender = ?,birthday = ?,imgLink = ?,email = ?,address = ?,createdDate = ?,getPassTime = ?,randomKey = ?,roleId = ?,userStatusId = ? where id = ? ";
+			PreparedStatement preparedStatement  = DBConnection.connect(query);
+			preparedStatement.setInt(1, user.getLibraryCardId());
+			preparedStatement.setString(2, user.getPassword());
+			preparedStatement.setString(3, user.getName());
+			preparedStatement.setString(4, user.getCMND());
+			preparedStatement.setString(5, user.getGender());
+			preparedStatement.setDate(6, user.getBirthday());
+			preparedStatement.setString(7, user.getImgLink());
+			preparedStatement.setString(8, user.getEmail());
+			preparedStatement.setString(9, user.getAddress());
+			preparedStatement.setDate(10, user.getCreatedDate());
+			preparedStatement.setTimestamp(11, user.getGetPassTime());
+			preparedStatement.setString(12, user.getRandomKey());
+			preparedStatement.setInt(13, user.getRoleId());
+			preparedStatement.setInt(14, user.getUserStatusId());
+			preparedStatement.setInt(15, user.getId());
+			return 1 == preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public static void main(String[] args) {
-		System.out.println(getUserByLibraryCardId(18130170).getName());
+	
 	}
 }
