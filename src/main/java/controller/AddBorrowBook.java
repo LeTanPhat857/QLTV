@@ -23,7 +23,7 @@ import model.object.User;
 import model.utils.Convert;
 
 @WebServlet("/addBook")
-public class AddBook extends HttpServlet {
+public class AddBorrowBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -71,6 +71,24 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
+	public static boolean checkLibraryCardId(int libraryCardId) {
+		String query = "select libraryCardId from Users where libraryCardId = ?";
+		try {
+			PreparedStatement preparedStatement = DBConnection.connect(query);
+			preparedStatement.setInt(1, libraryCardId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return false;
+			}else {
+				return true;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	public static boolean checkGetPassTimeByEmail(String userEmail, int time) {
 		String query = "select GetPassTime from Users where QuanLyThuVien.dbo.Users.Email = ?";
@@ -173,13 +191,70 @@ public class UserDAO {
 		return true;
 	}
 	
-	public static List<User> getUserList(int roleId) {
-		String sql = "select * from QuanLyThuVien.dbo.Users where QuanLyThuVien.dbo.Users.roleId  = ? and QuanLyThuVien.dbo.Users.userStatusId = ?";
+	public static List<User> getUserList(int size, int page) {
+		String sql = "with x as (select ROW_NUMBER() over (order by id) as row, * from Users where QuanLyThuVien.dbo.Users.roleId  = ? and QuanLyThuVien.dbo.Users.userStatusId = ?) "
+						+ " select * from x where row between (?-1)*?+1 and (?-1)*?+?";
 		List<User> list = new ArrayList<User>();
 		try {
 			PreparedStatement preparedStatement = DBConnection.connect(sql);
-			preparedStatement.setInt(1, roleId);
+			preparedStatement.setInt(1, 1);
 			preparedStatement.setInt(2, 1);
+			preparedStatement.setInt(3, page);
+			preparedStatement.setInt(4, size);
+			preparedStatement.setInt(5, page);
+			preparedStatement.setInt(6, size);
+			preparedStatement.setInt(7, size);
+			ResultSet resultSet =  preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setLibraryCardId(resultSet.getInt("libraryCardId"));
+				user.setPassword(resultSet.getString("password"));
+				user.setName(resultSet.getString("name"));
+				user.setCMND(resultSet.getString("CMND"));
+				user.setGender(resultSet.getString("gender"));
+				user.setBirthday(resultSet.getDate("birthday"));
+				user.setEmail(resultSet.getString("email"));
+				user.setAddress(resultSet.getString("address"));
+				user.setCreatedDate(resultSet.getDate("createdDate"));
+				user.setImgLink(resultSet.getString("imgLink"));
+				user.setRandomKey(resultSet.getString("randomKey"));
+				user.setGetPassTime(resultSet.getTimestamp("getPassTime"));
+				user.setRoleId(resultSet.getInt("roleId"));
+				user.setUserStatusId(resultSet.getInt("userStatusId"));
+				list.add(user);
+			}
+				return list;
+			
+		} catch (SQLException | ClassNotFoundException | NumberFormatException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static int getQuantityUserInDb() {
+		try {
+			String sql = "select count(id) as quantity from Users where roleId  = 1 and userStatusId = 1";
+			Statement statement = DBConnection.connectStatement();
+			ResultSet result = statement.executeQuery(sql);
+			int quantity =0;
+			if (result.next()) {
+				quantity =  result.getInt("quantity");
+			}
+			return quantity;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public static List<User> getStaffList() {
+		String sql = "select * from QuanLyThuVien.dbo.Users where QuanLyThuVien.dbo.Users.roleId  > 1 and QuanLyThuVien.dbo.Users.userStatusId = ?";
+		List<User> list = new ArrayList<User>();
+		try {
+			PreparedStatement preparedStatement = DBConnection.connect(sql);
+			preparedStatement.setInt(1, 1);
 			ResultSet resultSet =  preparedStatement.executeQuery();
 			
 			while(resultSet.next()) {
@@ -261,7 +336,7 @@ public class UserDAO {
 	
 	public static boolean updateReader(User user) {
 		try {
-			String query = "UPDATE QuanLyThuVien.dbo.Users SET libraryCardId = ?,password = ?,name = ?,CMND = ?,gender = ?,birthday = ?,imgLink = ?,email = ?,address = ?,createdDate = ?,getPassTime = ?,randomKey = ?,roleId = ?,userStatusId = ? where id = ? ";
+			String query = "UPDATE QuanLyThuVien.dbo.Users SET libraryCardId = ?,password = ?,name = ?,CMND = ?,gender = ?,birthday = ?,imgLink = ?,email = ?,address = ?,createdDate = ?,getPassTime = ?,randomKey = ?,roleId = ?,userStatusId = ? where libraryCardId = ? ";
 			PreparedStatement preparedStatement  = DBConnection.connect(query);
 			preparedStatement.setInt(1, user.getLibraryCardId());
 			preparedStatement.setString(2, user.getPassword());
@@ -277,7 +352,7 @@ public class UserDAO {
 			preparedStatement.setString(12, user.getRandomKey());
 			preparedStatement.setInt(13, user.getRoleId());
 			preparedStatement.setInt(14, user.getUserStatusId());
-			preparedStatement.setInt(15, user.getId());
+			preparedStatement.setInt(15, user.getLibraryCardId());
 			return 1 == preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

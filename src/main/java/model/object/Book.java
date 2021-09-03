@@ -20,10 +20,31 @@ public class Book {
     private int batchId;
     
     // constructor
-    
+    public Book() {
+    	
+    }
     // methods
 	public int getBarcode() {
 		return barcode;
+	}
+	public Book(int id, int barcode, String title, int pageNumber, int price, String description, String imgLink,
+			Date createdDate, int bookStatusId, int publisherId, int authorId, int languageId, int typeId,
+			int batchId) {
+		super();
+		this.id = id;
+		this.barcode = barcode;
+		this.title = title;
+		this.pageNumber = pageNumber;
+		this.price = price;
+		this.description = description;
+		this.imgLink = imgLink;
+		this.createdDate = createdDate;
+		this.bookStatusId = bookStatusId;
+		this.publisherId = publisherId;
+		this.authorId = authorId;
+		this.languageId = languageId;
+		this.typeId = typeId;
+		this.batchId = batchId;
 	}
 	public Date getCreatedDate() {
 		return createdDate;

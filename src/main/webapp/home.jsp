@@ -100,7 +100,7 @@
 			</div>
 
 			<div class="border-account mt-4 ml-4">
-				<div class="title-account  font-weight-bold">
+				<div class="title-account  font-weight-bold" style = "width: 240px">
 					<h2 class="text-account">Tài khoản thư viện</h2>
 				</div>
 				<c:choose>

@@ -18,6 +18,8 @@ p {
   line-height: 1.6;
 }
 
+
+
 .button {
   display: inline-block;
   margin-top: 20px;
@@ -314,7 +316,7 @@ p {
 }
 
 .border-account .title-account {
-  width: 200px;
+  width: 220px;
   position: relative;
   left: 30px;
   top: 20px;

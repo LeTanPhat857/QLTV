@@ -72,7 +72,6 @@
 						<th scope="col">Gioi Tính</th>
 						<th scope="col">Email</th>
 						<th scope="col">Địa chỉ</th>
-						<th scope="col">Ngày tạo</th>
 						<th scope="col">Thao tác</th>
 					</tr>
 				</thead>
@@ -86,10 +85,9 @@
 							<th>${user.gender}</th>
 							<td>${user.email}</td>
 							<td>${user.address}</td>
-							<td>${user.createdDate}</td>
 							<td>
 								<button class="btn btn-green border border-primary rounded-0"
-								type="submit">Sửa</button>
+								type="submit" onclick = "updateReaderPage(${user.libraryCardId})">Sửa</button>
 								<button class="btn btn-danger border border-primary rounded-0"
 								type="submit" onclick = "deleteReader(${user.libraryCardId})">Xóa</button>
 							</td>
@@ -97,5 +95,11 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			
+				<ul class="d-flex justify-content-end pagination pagination-lg mr-2">
+				<c:forEach begin="1" end="${numPage}" var="i">
+					<li class="page-item"><a class="page-link" href="#"onclick="clickPageNumberPageBook(${i})" > ${i} </a></li>
+				</c:forEach>
+				</ul>
 		</div>
 	</div>

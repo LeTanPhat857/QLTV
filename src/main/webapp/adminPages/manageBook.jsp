@@ -5,7 +5,7 @@
 <div class="content d-flex justify-content-between"
 	style="height: auto; padding-top: 5px">
 	<div class="title  p-2 bd-highlight">Quản lý sách</div>
-	<div onclick="addBook()"
+	<div onclick="tranferToAddBookPage()"
 		style="width: 200px; height: 40px; margin-top: auto; margin-bottom: auto"
 		class="btn btn-primary bd-highlight rounded-pill" data-toggle="button"
 		aria-pressed="false">Nhập sách</div>
@@ -70,10 +70,8 @@
 					<th scope="col">Thể Loại</th>
 					<th scope="col">Tác giả</th>
 					<th scope="col">Nhà Xuất Bản</th>
-					<th scope="col">Ngôn Ngữ</th>
 					<th scope="col">Gía bìa</th>
 					<th scope="col">Tình Trạng</th>
-					<th scope="col">Ngày tạo</th>
 					<th scope="col">Thao tác</th>
 				</tr>
 			</thead>
@@ -85,26 +83,23 @@
 						<td>${book.type}</td>
 						<td>${book.author}</td>
 						<td>${book.publisher}</td>
-						<td>${book.language}</td>
 						<td>${book.price}</td>
 						<td>${book.status}</td>
-						<td>${book.createdDate}</td>
 						<td>
 							<button class="btn btn-green border border-primary rounded-0"
-								type="submit">Sửa</button>
+								type="submit" onclick="tranferToUpdateBookPage(${book.id})" >Sửa</button>
 							<button class="btn btn-danger border border-primary rounded-0"
-								type="submit" onclick="deleteReader(${user.libraryCardId})">Xóa</button>
+								type="submit" onclick="deleteBook(${book.id})">Xóa</button>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<nav aria-label="...">
-			<ul class="pagination pagination-lg">
-				<li class="page-item primary"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<ul class="d-flex justify-content-end pagination pagination-lg mr-2">
+				<c:forEach begin="1" end="${numPage}" var="i">
+					<li class="page-item"><a class="page-link" href="#"onclick="clickPageNumberPageBook(${i})" > ${i} </a></li>
+				</c:forEach>
 			</ul>
-		</nav>
+	
 	</div>
 </div>
