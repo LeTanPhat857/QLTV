@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,11 +23,11 @@ public class ResetPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+		  doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // set up response
+    	  // set up response
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         // processing
@@ -37,17 +39,17 @@ public class ResetPassword extends HttpServlet {
     }
 
     private String checkAndSendEmail(User user, String randomKey) {
-        if (user != null && user.getRandomKey().contentEquals(randomKey) && UserDAO.checkGetPassTimeByEmail(user.getEmail(), 30 * 60 * 1000)) {
-            String newPass = new Random().createRandomString(8);
-            if (UserDAO.resetPassByEmail(user.getEmail(), newPass) && new MailSender().sendNewPassMail(user.getEmail(), newPass)) {
-                if (user.getRoleId() == 1) {
-                    return "default?page=home";
-                } else {
-                    return "default?page=staffHome";
-                }
-            }
-        }
-        return "default?page=login";
+    	   if (user != null && user.getRandomKey().contentEquals(randomKey) && UserDAO.checkGetPassTimeByEmail(user.getEmail(), 30 * 60 * 1000)) {
+               String newPass = new Random().createRandomString(8);
+               if (UserDAO.resetPassByEmail(user.getEmail(), newPass) && new MailSender().sendNewPassMail(user.getEmail(), newPass)) {
+                   if (user.getRoleId() == 1) {
+                       return "default?page=home";
+                   } else {
+                       return "default?page=staffHome";
+                   }
+               }
+           }
+           return "default?page=login";
     }
 }
 

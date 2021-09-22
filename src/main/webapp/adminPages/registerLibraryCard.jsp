@@ -17,27 +17,16 @@
 						<div class="col-6">
 							<img alt="" class="img-thumbnail rounded mx-auto d-block"
 								style="max-width: 60%" src="images/user/0.jpeg">
-							<input type="file" id= "namefile" class ="dropify_" name="file"	 multiple><br>
+							<input type="file" id= "nameFileLibraryCard" class ="dropify_" name="file"	 multiple><br>
 						</div>
 						
 						<div class=" col-6 row text-left">
+						
 							<div class="form-group row col-12" style="margin-bottom: 10px">
-								<label for="inputEmail" class="col-4 col-form-label">Đối
-									tượng </label>
-								<div class="col-8">
-									<select class="custom-select" id="inputGroupSelect02"
-										style="padding: .375rem .75rem">
-										<option selected value="1">Sinh viên</option>
-										<option value="2">Giảng viên</option>
-										<option value="3">Khác</option>
-									</select>
-								</div>
-							</div>
-							<div class="form-group row col-12" style="margin-bottom: 10px">
-								<label for="inputEmail" class="col-4 col-form-label">Họ
+								<label for="inputEmail"  class="col-4 col-form-label">Họ
 									và tên </label>
 								<div class="col-8" >
-									<input id = "studentName" type="text" class="form-control" placeholder="Họ Và Tên"
+									<input id = "studentName" required type="text" class="form-control" placeholder="Họ Và Tên"
 										name="name">
 								</div>
 							</div>
@@ -60,7 +49,7 @@
 								</div>
 							</div>
 							<div class="form-group row col-12" style="margin-bottom: 10px">
-								<label for="inputEmail" class="col-4 col-form-label">Số
+								<label for="inputEmail" required class="col-4 col-form-label">Số
 									CMND </label>
 								<div class="col-8">
 									<input type="text" id = "CMND" class="form-control" name="cmnd">
@@ -68,29 +57,29 @@
 							</div>
 							<div class="form-group row col-12" style="margin-bottom: 10px">
 								<%--@declare id="student_code"--%>
-								<label  for="student_code" class="col-4 col-form-label">Mã
+								<label  for="student_code" class="col-4 col-form-label " >Mã
 									số sinh viên </label>
 								<div class="col-8">
-									<input id= "studentId" type="text" class="form-control" name="student_code">
+									<input id= "studentId" required type="text" class="form-control" name="student_code">
 								</div>
 							</div>
 							<div class="form-group row col-12" style="margin-bottom: 25px">
 								<label  for="inputEmail" class="col-4 col-form-label">Ngày sinh:</label>
 								<div class="col-8">
-									<input type="date" id = "birthdayReader" class="form-control" name="phone">
+									<input type="date" required id = "birthdayReader" class="form-control" name="phone">
 								</div>
 							</div>
 							<div class="form-group row col-12" style="margin-bottom: 10px">
 								<label for="inputEmail" class="col-4 col-form-label">Địa
 									chỉ </label>
 								<div class="col-8">
-									<input type="text" id = "adressReader" class="form-control">
+									<input type="text" required id = "adressReader" class="form-control">
 								</div>
 							</div>
 							<div class="form-group row col-12" style="margin-bottom: 10px">
 								<label for="inputEmail" class="col-4 col-form-label">Email</label>
 								<div class="col-8">
-									<input type="email" class="form-control" id="inputEmail"
+									<input type="email" required class="form-control" id="inputEmail"
 										placeholder="Email">
 								</div>
 							</div>

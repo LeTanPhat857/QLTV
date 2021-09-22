@@ -26,6 +26,29 @@ public class User {
     public int getLibraryCardId() {
 		return libraryCardId;
 	}
+    public User(){
+    	
+    }
+	public User(int id, int libraryCardId, String password, String name, String cMND, String gender, Date birthday,
+			String imgLink, String email, String address, Date createdDate, String randomKey, Timestamp getPassTime,
+			int userStatusId, int roleId) {
+		super();
+		this.id = id;
+		this.libraryCardId = libraryCardId;
+		this.password = password;
+		this.name = name;
+		CMND = cMND;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.imgLink = imgLink;
+		this.email = email;
+		this.address = address;
+		this.createdDate = createdDate;
+		this.randomKey = randomKey;
+		this.getPassTime = getPassTime;
+		this.userStatusId = userStatusId;
+		this.roleId = roleId;
+	}
 	public int getId() {
 		return id;
 	}

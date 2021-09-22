@@ -88,7 +88,7 @@
 							<td>${user.createdDate}</td>
 							<td>
 								<button class="btn btn-green border border-primary rounded-0"
-								type="submit">Sửa</button>
+								type="submit" >Sửa</button>
 								<button class="btn btn-danger border border-primary rounded-0"
 								type="submit" onclick = "deleteReader(${user.libraryCardId})">Xóa</button>
 							</td>

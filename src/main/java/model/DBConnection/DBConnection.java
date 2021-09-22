@@ -8,7 +8,6 @@ import java.sql.Statement;
 
 public class DBConnection {
     public static Connection connection;
-    //"jdbc:sqlserver://localhost:1433;databaseName=QuanLyThuVien;username=sa;password=123"
     public static PreparedStatement connect(String sql) throws ClassNotFoundException, SQLException {
             if (connection == null || connection.isClosed()) {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
